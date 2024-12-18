@@ -1,0 +1,534 @@
+[
+    {
+        "id": "4c3d68c3cb4ac80a",
+        "type": "tab",
+        "label": "Gateway Info",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "b155f8a144bfbecd",
+        "type": "group",
+        "z": "4c3d68c3cb4ac80a",
+        "name": "Get Digi Serial Number",
+        "style": {
+            "fill": "#d1d1d1",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "57dd15e85d7e8750",
+            "daa11dc7fa349e07",
+            "d4618ca1f31c712b"
+        ],
+        "x": 14,
+        "y": 19,
+        "w": 672,
+        "h": 82
+    },
+    {
+        "id": "6bbd761fc91a203a",
+        "type": "group",
+        "z": "4c3d68c3cb4ac80a",
+        "name": "Get IP and MAC address",
+        "style": {
+            "fill": "#d1d1d1",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "7f2f005b79e8c0f4",
+            "1881479c7dfc0acc",
+            "696a9e25728eb952"
+        ],
+        "x": 14,
+        "y": 119,
+        "w": 612,
+        "h": 109.5
+    },
+    {
+        "id": "499f47e5c4a674b9",
+        "type": "group",
+        "z": "4c3d68c3cb4ac80a",
+        "name": "Get CPU Info",
+        "style": {
+            "fill": "#d1d1d1",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "5efbbcec87161c46",
+            "774f2504089ca13f",
+            "91e0fc5701534b6e",
+            "0b97ec0243258aec",
+            "2c99fc49721838bb"
+        ],
+        "x": 14,
+        "y": 239,
+        "w": 752,
+        "h": 122
+    },
+    {
+        "id": "b798775944f2f806",
+        "type": "group",
+        "z": "4c3d68c3cb4ac80a",
+        "name": "Get RAM and Traffic Info",
+        "style": {
+            "fill": "#d1d1d1",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "ff96344429821422",
+            "2ad62a34c62a67f2",
+            "3e1cde092d1453ea"
+        ],
+        "x": 14,
+        "y": 379,
+        "w": 592,
+        "h": 82
+    },
+    {
+        "id": "189b41574c9ec8b6",
+        "type": "group",
+        "z": "4c3d68c3cb4ac80a",
+        "name": "Publish the data",
+        "style": {
+            "fill": "#d1d1d1",
+            "label": true,
+            "color": "#000000"
+        },
+        "nodes": [
+            "0ba625c350c75d39",
+            "503bfd82fed90bde",
+            "ed3f776ed52eaff8"
+        ],
+        "x": 14,
+        "y": 479,
+        "w": 572,
+        "h": 82
+    },
+    {
+        "id": "5efbbcec87161c46",
+        "type": "cpu",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "499f47e5c4a674b9",
+        "name": "",
+        "msgCore": false,
+        "msgOverall": true,
+        "msgArray": false,
+        "msgTemp": true,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "774f2504089ca13f"
+            ]
+        ]
+    },
+    {
+        "id": "ff96344429821422",
+        "type": "DeviceStats",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b798775944f2f806",
+        "name": "",
+        "mem": true,
+        "nw": true,
+        "load": true,
+        "hostname": true,
+        "useString": false,
+        "x": 290,
+        "y": 420,
+        "wires": [
+            [
+                "3e1cde092d1453ea"
+            ]
+        ]
+    },
+    {
+        "id": "774f2504089ca13f",
+        "type": "switch",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "499f47e5c4a674b9",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "overall",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "temperature",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 470,
+        "y": 300,
+        "wires": [
+            [
+                "91e0fc5701534b6e"
+            ],
+            [
+                "0b97ec0243258aec"
+            ]
+        ]
+    },
+    {
+        "id": "91e0fc5701534b6e",
+        "type": "change",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "499f47e5c4a674b9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "cpu_load",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 650,
+        "y": 280,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0b97ec0243258aec",
+        "type": "change",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "499f47e5c4a674b9",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "cpu_temperature_average",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "cpu_temperature_max",
+                "pt": "flow",
+                "to": "max",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 640,
+        "y": 320,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2ad62a34c62a67f2",
+        "type": "inject",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b798775944f2f806",
+        "name": "",
+        "props": [],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 420,
+        "wires": [
+            [
+                "ff96344429821422"
+            ]
+        ]
+    },
+    {
+        "id": "3e1cde092d1453ea",
+        "type": "change",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b798775944f2f806",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "ram_used",
+                "pt": "flow",
+                "to": "payload.mem.used",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "ram_available",
+                "pt": "flow",
+                "to": "payload.mem.free",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "traffic_tx",
+                "pt": "flow",
+                "to": "payload.nw.eth0.tx",
+                "tot": "msg"
+            },
+            {
+                "t": "set",
+                "p": "traffic_rx",
+                "pt": "flow",
+                "to": "payload.nw.eth0.rx",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 500,
+        "y": 420,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "2c99fc49721838bb",
+        "type": "inject",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "499f47e5c4a674b9",
+        "name": "",
+        "props": [],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 300,
+        "wires": [
+            [
+                "5efbbcec87161c46"
+            ]
+        ]
+    },
+    {
+        "id": "0ba625c350c75d39",
+        "type": "inject",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "189b41574c9ec8b6",
+        "name": "",
+        "props": [
+            {
+                "p": "payload"
+            }
+        ],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": "10",
+        "topic": "",
+        "payload": "{\"cpu_load\":0,\"cpu_temperature_average\":0,\"cpu_temperature_max\":0,\"ram_used\":0,\"ram_available\":0,\"traffic_tx\":0,\"traffic_rx\":0,\"local_ip\":0,\"mac_address\":0,\"digi_serial_number\":0}",
+        "payloadType": "json",
+        "x": 110,
+        "y": 520,
+        "wires": [
+            [
+                "503bfd82fed90bde"
+            ]
+        ]
+    },
+    {
+        "id": "503bfd82fed90bde",
+        "type": "function",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "189b41574c9ec8b6",
+        "name": "function 14",
+        "func": "msg.payload.cpu_load = flow.get(\"cpu_load\");\nmsg.payload.cpu_temperature_average = flow.get(\"cpu_temperature_average\");\nmsg.payload.cpu_temperature_max = flow.get(\"cpu_temperature_max\");\nmsg.payload.ram_available = flow.get(\"ram_available\");\nmsg.payload.ram_used = flow.get(\"ram_used\");\nmsg.payload.traffic_tx = flow.get(\"traffic_tx\");\nmsg.payload.traffic_rx = flow.get(\"traffic_rx\");\nmsg.payload.digi_serial_number = flow.get(\"digi_serial_number\");\nmsg.payload.mac_address = flow.get(\"mac_address\");\nmsg.payload.local_ip = flow.get(\"local_ip\");\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 290,
+        "y": 520,
+        "wires": [
+            [
+                "ed3f776ed52eaff8"
+            ]
+        ]
+    },
+    {
+        "id": "ed3f776ed52eaff8",
+        "type": "debug",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "189b41574c9ec8b6",
+        "name": "debug 26",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 480,
+        "y": 520,
+        "wires": []
+    },
+    {
+        "id": "57dd15e85d7e8750",
+        "type": "ncd-gateway-node",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b155f8a144bfbecd",
+        "name": "",
+        "connection": "3a158777559a1790",
+        "unknown_devices": 0,
+        "outputs": 1,
+        "x": 150,
+        "y": 60,
+        "wires": [
+            [
+                "daa11dc7fa349e07"
+            ]
+        ]
+    },
+    {
+        "id": "daa11dc7fa349e07",
+        "type": "switch",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b155f8a144bfbecd",
+        "name": "",
+        "property": "topic",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "topic",
+                "vt": "msg"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 330,
+        "y": 60,
+        "wires": [
+            [
+                "d4618ca1f31c712b"
+            ]
+        ]
+    },
+    {
+        "id": "d4618ca1f31c712b",
+        "type": "change",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "b155f8a144bfbecd",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "digi_serial_number",
+                "pt": "flow",
+                "to": "payload",
+                "tot": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 540,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "7f2f005b79e8c0f4",
+        "type": "exec",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "6bbd761fc91a203a",
+        "command": "ip addr show",
+        "addpay": "",
+        "append": "",
+        "useSpawn": "false",
+        "timer": "",
+        "winHide": false,
+        "oldrc": false,
+        "name": "",
+        "x": 310,
+        "y": 180,
+        "wires": [
+            [
+                "696a9e25728eb952"
+            ],
+            [],
+            []
+        ]
+    },
+    {
+        "id": "1881479c7dfc0acc",
+        "type": "inject",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "6bbd761fc91a203a",
+        "name": "",
+        "props": [],
+        "repeat": "30",
+        "crontab": "",
+        "once": true,
+        "onceDelay": 0.1,
+        "topic": "",
+        "x": 110,
+        "y": 180,
+        "wires": [
+            [
+                "7f2f005b79e8c0f4"
+            ]
+        ]
+    },
+    {
+        "id": "696a9e25728eb952",
+        "type": "function",
+        "z": "4c3d68c3cb4ac80a",
+        "g": "6bbd761fc91a203a",
+        "name": "function 15",
+        "func": "function extractEth0Info(output) {\n    const lines = output.split('\\n');\n    let eth0Info = {};\n    let eth0Section = false;\n\n    for (const line of lines) {\n        if (line.includes('11: eth0:')) {\n            eth0Section = true;\n        } else if (eth0Section && line.startsWith(' ')) {\n            if (line.includes('link/ether')) {\n                eth0Info.macAddress = line.match(/link\\/ether ([0-9a-f:]+)/)[1];\n            } else if (line.includes('inet ') && !line.includes('inet6')) {\n                const inetAddressWithCIDR = line.match(/inet ([0-9.]+\\/[0-9]+)/)[1];\n                eth0Info.inetAddress = inetAddressWithCIDR.split('/')[0];\n            }\n        } else if (eth0Section && !line.startsWith(' ')) {\n            break;\n        }\n    }\n\n    return eth0Info;\n}\n\n// Extract and print eth0 info\nconst eth0Info = extractEth0Info(msg.payload);\nmsg.payload = eth0Info;\nflow.set(\"local_ip\",eth0Info.inetAddress);\nflow.set(\"mac_address\",eth0Info.macAddress);\nreturn msg;",
+        "outputs": 1,
+        "noerr": 0,
+        "initialize": "",
+        "finalize": "",
+        "libs": [],
+        "x": 530,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "3a158777559a1790",
+        "type": "ncd-gateway-config",
+        "name": "",
+        "comm_type": "serial",
+        "ip_address": "",
+        "tcp_port": "2101",
+        "port": "/dev/ttymxc2",
+        "baudRate": "115200",
+        "pan_id": "7FFF",
+        "rssi": false
+    }
+]
